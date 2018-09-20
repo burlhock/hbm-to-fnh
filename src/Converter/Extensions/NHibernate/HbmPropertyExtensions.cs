@@ -43,7 +43,7 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 			if (columnName == null)
 			{
 				HbmColumn column = item.Column();
-				columnName = column.name;
+				columnName = column?.name;
 			}
 			return columnName;
 		}
@@ -65,13 +65,13 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 
 		public static int? GetMaxLength(this HbmProperty item)
 		{
-			int? maxLength = item.length.ParseInt32();
+			int? maxLength = item.length?.ParseInt32();
 			if (maxLength == null)
 			{
 				HbmColumn column = item.Column();
 				if (column != null)
 				{
-					maxLength = column.length.ParseInt32();
+					maxLength = column.length?.ParseInt32();
 				}
 			}
 			return maxLength;

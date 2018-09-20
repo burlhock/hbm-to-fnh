@@ -11,7 +11,7 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 
 		public static string GetReturnType(this HbmComponent item)
 		{
-			return item.@class.GetTypeName();
+			return item.@class?.GetTypeName();
 		}
 	}
 }

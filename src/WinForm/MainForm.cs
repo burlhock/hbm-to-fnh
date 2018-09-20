@@ -6,11 +6,14 @@ namespace NHibernateHbmToFluent.WinForm
 {
 	public partial class MainForm : Form
 	{
-		public MainForm()
+		public MainForm(string hbmDirectory = "", string mapDirectory = "", string nameSpace = "")
 		{
 			InitializeComponent();
 			ShowHideErrors(false);
 			ShowHideFilesProcessed(false);
+
+            _txtHbmDir.Text = hbmDirectory;
+            _txtNamespace.Text = nameSpace;
 		}
 
 		private void _menuFileExit_Click(object sender, EventArgs e)
@@ -53,7 +56,7 @@ namespace NHibernateHbmToFluent.WinForm
 			_txtFilesProcessed.Text = "";
 			_txtErrors.Text = "";
 			MappingConverter mappingConverter = new MappingConverter(WriteFileName, WriteError);
-			mappingConverter.ConvertAll(_txtHbmDir.Text, _txtMapDir.Text, _txtNamespace.Text);
+			mappingConverter.ConvertAll(_txtHbmDir.Text, _txtMapDir.Text, _txtNamespace.Text, _chkRecursive.Checked);
 		}
 
 
@@ -67,5 +70,5 @@ namespace NHibernateHbmToFluent.WinForm
 			ShowHideErrors(true);
 			_txtErrors.Text += message + Environment.NewLine;
 		}
-	}
+    }
 }

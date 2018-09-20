@@ -20,8 +20,7 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 
 		public static string GetReturnType(this HbmBag item)
 		{
-			HbmOneToMany oneToMany = (HbmOneToMany) item.Item;
-			return oneToMany.@class.GetTypeName();
+			return new MappedPropertyInfo(item.Item, null).ReturnType;
 		}
 
 		public static string GetColumnName(this HbmBag item)

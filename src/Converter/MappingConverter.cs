@@ -16,6 +16,57 @@ namespace NHibernateHbmToFluent.Converter
 			_writeToError = writeToError;
 		}
 
+        public void ConvertAll(string hbmDirectory, string mapDirectory, string nameSpace, bool recursiveAndSameLocation)
+        {
+            if (recursiveAndSameLocation)
+            {
+                ConvertDirectoryRecursively(hbmDirectory, nameSpace);
+            }
+            else
+            {
+                ConvertAll(hbmDirectory, mapDirectory, nameSpace);
+            }
+        }
+
+        private void ConvertDirectoryRecursively(string directory, string nameSpace)
+        {
+            string[] files = Directory.GetFiles(directory, "*" + HbmFileUtility.NHibernateFileExtension);
+            foreach (string hbmFilePath in files)
+            {
+                try
+                {
+                    _writeToConsole(hbmFilePath);
+                    foreach (var classInfo in HbmFileUtility.LoadFile(hbmFilePath))
+                    {
+                        ConvertFile(classInfo, nameSpace, directory);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _writeToError("Caught exception processing file " + Path.GetFileName(hbmFilePath) + ": " + ex);
+                }
+            }
+
+            foreach (string subDirectory in Directory.GetDirectories(directory))
+            {
+                ConvertDirectoryRecursively(subDirectory, nameSpace);
+            }
+        }
+
+        private void ConvertFile(MappedClassInfo classInfo, string nameSpace, string destDirectory)
+        {
+            string classNameAndNamespace = classInfo.ClassName;
+            int dotLoc = classNameAndNamespace.LastIndexOf('.');
+            string className = classNameAndNamespace;
+            if (dotLoc != -1)
+            {
+                className = className.Substring(dotLoc + 1);
+            }
+            string classMapName = className + "Map";
+            string result = Convert(classMapName, classInfo, nameSpace);
+            File.WriteAllText(Path.Combine(destDirectory, classMapName + ".cs"), result);
+        }
+
 		public void ConvertAll(string hbmDirectory, string mapDirectory, string nameSpace)
 		{
 			string[] files = Directory.GetFiles(hbmDirectory, "*" + HbmFileUtility.NHibernateFileExtension);
@@ -26,16 +77,7 @@ namespace NHibernateHbmToFluent.Converter
 					_writeToConsole(hbmFilePath);
                     foreach (var classInfo in HbmFileUtility.LoadFile(hbmFilePath))
 				    {
-                        string classNameAndNamespace = classInfo.ClassName;
-                        int dotLoc = classNameAndNamespace.LastIndexOf('.');
-                        string className = classNameAndNamespace;
-                        if (dotLoc != -1)
-                        {
-                            className = className.Substring(dotLoc + 1);
-                        }
-                        string classMapName = className + "Map";
-                        string result = Convert(classMapName, classInfo, nameSpace);
-                        File.WriteAllText(Path.Combine(mapDirectory, classMapName + ".cs"), result);
+                        ConvertFile(classInfo, nameSpace, mapDirectory);
 				    }
 				}
 				catch (Exception ex)
