@@ -7,8 +7,10 @@ namespace NHibernateHbmToFluent.Converter.Types
 	public class Bag : IMapStart
 	{
 		private readonly CodeFileBuilder _builder;
-		private readonly OrderBy _orderBy;
+        private readonly Where _where;
+        private readonly OrderBy _orderBy;
 		private readonly Cascade _cascade;
+        private readonly Fetch _fetch;
 		private readonly Inverse _inverse;
 		private readonly Table _table;
 		private readonly KeyColumn _keyColumn;
@@ -18,8 +20,10 @@ namespace NHibernateHbmToFluent.Converter.Types
 		public Bag(CodeFileBuilder builder)
 		{
 			_builder = builder;
-			_orderBy = new OrderBy(builder);
+            _where = new Where(builder);
+            _orderBy = new OrderBy(builder);
 			_cascade = new Cascade(builder);
+            _fetch = new Fetch(builder);
 			_inverse = new Inverse(builder);
 			_table = new Table(builder);
 			_keyColumn = new KeyColumn(builder);
@@ -49,7 +53,9 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_table.Add(bag.table);
 			_inverse.Add(bag.inverse);
 			_cascade.Add(bag.cascade);
+            _fetch.Add(bag.fetch);
 			_orderBy.Add(bag.orderby);
+            _where.Add(bag.where);
             _cacheBuilder.Add(bag.cache);
         }
 

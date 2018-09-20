@@ -10,6 +10,7 @@ namespace NHibernateHbmToFluent.Converter.Types
 		private readonly Where _where;
 		private readonly OrderBy _orderBy;
 		private readonly Cascade _cascade;
+        private readonly Fetch _fetch;
         private readonly CacheBuilder _cacheBuilder;
 		private readonly Inverse _inverse;
 		private readonly Table _table;
@@ -22,6 +23,7 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_where = new Where(builder);
 			_orderBy = new OrderBy(builder);
 			_cascade = new Cascade(builder);
+            _fetch = new Fetch(builder);
 			_inverse = new Inverse(builder);
 			_table = new Table(builder);
 			_keyColumn = new KeyColumn(builder);
@@ -53,6 +55,7 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_table.Add(set.table);
 			_inverse.Add(set.inverse);
 			_cascade.Add(set.cascade);
+            _fetch.Add(set.fetch);
 			_orderBy.Add(set.orderby);
 			_where.Add(set.where);
             _cacheBuilder.Add(set.cache);

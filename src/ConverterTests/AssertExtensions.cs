@@ -11,29 +11,29 @@ namespace ConverterTests
 	{
 		public static void ShouldBeGreaterThan<T>(this T item, [NotNull] T lowEndOfRange) where T : IComparable
 		{
-			Assert.That(Is.GreaterThan(lowEndOfRange).Matches(item));
+			item.ShouldBeGreaterThan(lowEndOfRange);
 		}
 
 		public static void ShouldBeGreaterThan<T>(this T item, [NotNull] T lowEndOfRange, string errorMessage)
 			where T : IComparable
 		{
-			Assert.That(Is.GreaterThan(lowEndOfRange).Matches(item), errorMessage);
+            item.ShouldBeGreaterThan(lowEndOfRange, errorMessage);
 		}
 
 
 		public static void ShouldBeLessThan<T>(this T item, [NotNull] T highEndOfRange) where T : IComparable
 		{
-			Assert.That(Is.LessThan(highEndOfRange).Matches(item));
+            item.ShouldBeLessThan(highEndOfRange);
 		}
 
 		public static void ShouldBeGreaterThanOrEqualTo<T>(this T item, [NotNull] T lowEndOfRange) where T : IComparable
 		{
-			Assert.That(Is.GreaterThanOrEqualTo(lowEndOfRange).Matches(item));
+            item.ShouldBeGreaterThanOrEqualTo(lowEndOfRange);
 		}
 
 		public static void ShouldBeLessThanOrEqualTo<T>(this T item, [NotNull] T highEndOfRange) where T : IComparable
 		{
-			Assert.That(Is.LessThanOrEqualTo(highEndOfRange).Matches(item));
+            item.ShouldBeLessThanOrEqualTo(highEndOfRange);
 		}
 
 		public static void ShouldBeInRangeInclusive<T>(this T item, [NotNull] T lowEndOfRange, [NotNull] T highEndOfRange)

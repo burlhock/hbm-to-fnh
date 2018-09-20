@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NHibernateHbmToFluent.WinForm</RootNamespace>
     <AssemblyName>NHibernateHbmToFluent</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>NHibernateHbmToFluent.Program</StartupObject>
     <FileUpgradeFlags>
