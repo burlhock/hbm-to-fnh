@@ -9,4 +9,4 @@ CommonAssemblyInfo.cs
 *.cache
 /src/Backup/
 /src/packages
-/src/.vs/NHibernateHbmToFluent/v15/Server/sqlite3
+.vs

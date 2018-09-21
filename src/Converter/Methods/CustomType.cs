@@ -18,9 +18,16 @@ namespace NHibernateHbmToFluent.Converter.Methods
 				return;
 			}
 
-			if (item.SqlType == "CHAR" && item.ReturnType == "YesNo")
+			if (item.ReturnType != null) // item.SqlType == "CHAR" && item.ReturnType == "YesNo")
 			{
-				_builder.AddLine(string.Format(".{0}(\"{1}\")", FluentNHibernateNames.CustomType, item.ReturnType));
+                if (item.ReturnType.IndexOf('.') > 0)
+                {
+                    _builder.AddLine($".{FluentNHibernateNames.CustomType}<{item.ReturnType}>()");
+                }
+                else
+                {
+                    _builder.AddLine(string.Format(".{0}(\"{1}\")", FluentNHibernateNames.CustomType, item.ReturnType));
+                }
 			}
 		}
 

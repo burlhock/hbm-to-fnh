@@ -34,7 +34,7 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 
 		public static string GetReturnType(this HbmProperty item)
 		{
-			return item.type1.GetTypeName();
+			return item.type1?.GetTypeName();
 		}
 
 		public static string GetColumnName(this HbmProperty item)
